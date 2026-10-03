@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:Learn - Global AI Hackathon Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #040407; }
+        code, pre { font-family: 'JetBrains Mono', monospace; }
+        .slide { display: none; min-height: 80vh; }
+        .slide.active { display: flex; }
+        .text-glow-purple {
+            color: #c084fc;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.75), 0 0 40px rgba(147, 51, 234, 0.45);
+        }
+        .text-glow-white {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        .space-card {
+            background: rgba(12, 12, 22, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(168, 85, 247, 0.2);
+        }
+        #constellationCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 0;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex flex-col justify-between min-h-screen p-6 relative">
+
+    <canvas id="constellationCanvas"></canvas>
+
+    <!-- Top Bar -->
+    <div class="max-w-6xl mx-auto w-full flex items-center justify-between border-b border-purple-500/20 pb-4 relative z-10">
+        <div class="flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
+            <span class="font-extrabold text-white tracking-wide text-lg">RE:<span class="text-glow-purple">LEARN</span></span>
+            <span class="text-xs text-purple-300 font-mono ml-2 border border-purple-500/30 px-2 py-0.5 rounded-full">GLOBAL AI HACKATHON EDITION</span>
+        </div>
+        <div class="text-xs font-mono text-purple-300">
+            Slide <span id="currentSlideNum" class="text-white font-bold">1</span> / <span id="totalSlideNum">6</span>
+        </div>
+    </div>
+
+    <!-- Presentation Body -->
+    <div class="max-w-6xl mx-auto w-full flex-1 flex items-center justify-center my-6 relative z-10">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active flex-col items-center justify-center text-center p-10 space-card rounded-3xl w-full space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/40 text-purple-300 text-xs font-mono tracking-widest uppercase">
+                BIT N BUILD International Hackathon &bull; Maharashtra Round
+            </div>
+            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight">
+                <span class="text-glow-white block">RE:LEARN</span>
+                <span class="text-glow-purple block mt-1 tracking-wider">AI HACKATHON</span>
+            </h1>
+            <p class="text-sm sm:text-base text-purple-200/90 font-medium tracking-widest uppercase max-w-xl">
+                The Starting Line For Adaptive Cognitive AI & Misconception Diagnosis
+            </p>
+            <div class="pt-4 border-t border-purple-500/20 flex gap-4 text-xs font-mono text-slate-400">
+                <span>Domain: <strong class="text-white">Introductory Python</strong></span>
+                <span>&bull;</span>
+                <span>Host: <strong class="text-white">GDG Fr. CRCE Bandra</strong></span>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide flex-col justify-center p-10 space-card rounded-3xl w-full space-y-6">
+            <div class="border-b border-purple-500/20 pb-3">
+                <span class="text-xs font-mono text-purple-400 font-bold uppercase">The Backstory & Problem</span>
+                <h3 class="text-2xl font-bold text-white">Why Traditional LMS Binary Grading Fails</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                <div class="bg-space-950 p-5 rounded-2xl border border-rose-500/30 space-y-3">
+                    <h4 class="font-bold text-rose-400 flex items-center gap-2"><i class="fa-solid fa-xmark"></i> Traditional LMS</h4>
+                    <ul class="text-slate-300 space-y-2 list-disc list-inside">
+                        <li>Treats wrong answers as simply incorrect (0/1 binary grading).</li>
+                        <li>No insight into what concept the learner misunderstood.</li>
+                        <li>Showing the correct code promotes rote copying, not genuine learning.</li>
+                        <li>Fails to differentiate when two students make different mistakes leading to similar wrong outputs.</li>
+                    </ul>
+                </div>
+                <div class="bg-space-950 p-5 rounded-2xl border border-purple-500/40 space-y-3">
+                    <h4 class="font-bold text-purple-300 flex items-center gap-2"><i class="fa-solid fa-check"></i> Re:Learn Paradigm</h4>
+                    <ul class="text-slate-300 space-y-2 list-disc list-inside">
+                        <li>Identifies the underlying mental misconception in the student's mind.</li>
+                        <li>Differentiates between different root causes for similar buggy outputs.</li>
+                        <li>Generates multimodal interventions (analogies, visual diagrams, rules of thumb).</li>
+                        <li>Validates resolution with transfer challenges to guarantee true understanding.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Architecture -->
+        <div class="slide flex-col justify-center p-10 space-card rounded-3xl w-full space-y-6">
+            <div class="border-b border-purple-500/20 pb-3">
+                <span class="text-xs font-mono text-purple-400 font-bold uppercase">System Architecture</span>
+                <h3 class="text-2xl font-bold text-white">End-to-End Diagnostic Pipeline</h3>
+            </div>
+            <div class="grid grid-cols-3 gap-4 text-xs">
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-purple-400 font-mono">1. Code Submission</span>
+                    <p class="text-slate-300">Student writes Python code for an introductory challenge.</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-purple-400 font-mono">2. AST Feature Extractor</span>
+                    <p class="text-slate-300">Extracts syntactic trees, slice bounds, operators, and loop scopes.</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-emerald-400 font-mono">3. Misconception Engine</span>
+                    <p class="text-slate-300">Pure-Python TF-IDF centroid classifier predicts 1 of 8 misconception classes.</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-emerald-400 font-mono">4. Differentiation</span>
+                    <p class="text-slate-300">Isolates distinct cognitive faults behind similar wrong outputs.</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-amber-400 font-mono">5. Adaptive Intervention</span>
+                    <p class="text-slate-300">Delivers analogies, visual diagrams, and corrective diffs.</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-amber-400 font-mono">6. Learner Model & Gate</span>
+                    <p class="text-slate-300">Validates transfer question to confirm misconception resolution.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Differentiation Showcase -->
+        <div class="slide flex-col justify-center p-10 space-card rounded-3xl w-full space-y-6">
+            <div class="border-b border-purple-500/20 pb-3">
+                <span class="text-xs font-mono text-purple-400 font-bold uppercase">Hackathon Key Feature</span>
+                <h3 class="text-2xl font-bold text-white">Misconception Differentiation Showcase</h3>
+            </div>
+            <p class="text-xs text-slate-400">Problem: Extract first 2 elements of <code class="text-purple-300 font-mono">[10, 20, 30, 40]</code>. Expected: <code class="text-purple-300 font-mono">[10, 20]</code></p>
+            <div class="grid grid-cols-2 gap-6 text-xs">
+                <div class="bg-space-950 p-5 rounded-2xl border border-purple-500/40 space-y-2">
+                    <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono font-bold">Student A: arr[1:2] -> [20]</span>
+                    <h4 class="text-sm font-bold text-white">1-Based Indexing Assumption (M1)</h4>
+                    <p class="text-slate-300 leading-relaxed">Cognitive Flaw: Believes sequence items count starting from 1 instead of 0, so element #1 is at index 1.</p>
+                </div>
+                <div class="bg-space-950 p-5 rounded-2xl border border-amber-500/40 space-y-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">Student B: arr[0:1] -> [10]</span>
+                    <h4 class="text-sm font-bold text-white">Inclusive Stop Bound Assumption (M2)</h4>
+                    <p class="text-slate-300 leading-relaxed">Cognitive Flaw: Started correctly at 0, but assumed the stop index in [start:end] includes index 'end'.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Model Evaluation -->
+        <div class="slide flex-col justify-center p-10 space-card rounded-3xl w-full space-y-6">
+            <div class="border-b border-purple-500/20 pb-3">
+                <span class="text-xs font-mono text-purple-400 font-bold uppercase">Model Evaluation</span>
+                <h3 class="text-2xl font-bold text-white">Quantitative Performance (Held-Out Test Set)</h3>
+            </div>
+            <div class="grid grid-cols-4 gap-4 text-center">
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20">
+                    <span class="text-3xl font-extrabold text-glow-purple font-mono">80.0%</span>
+                    <p class="text-xs text-slate-400 mt-1">Test Accuracy</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20">
+                    <span class="text-3xl font-extrabold text-white font-mono text-glow-white">100.0%</span>
+                    <p class="text-xs text-slate-400 mt-1">Weighted Precision</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20">
+                    <span class="text-3xl font-extrabold text-purple-300 font-mono">80.0%</span>
+                    <p class="text-xs text-slate-400 mt-1">Weighted Recall</p>
+                </div>
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20">
+                    <span class="text-3xl font-extrabold text-amber-400 font-mono">88.9%</span>
+                    <p class="text-xs text-slate-400 mt-1">Weighted F1-Score</p>
+                </div>
+            </div>
+            <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 text-xs text-slate-300 space-y-1">
+                <p><strong>Pure-Python Architecture:</strong> Zero external C-extension binary dependencies, eliminating DLL runtime crash risks on testing machines.</p>
+                <p><strong>Evaluation Reliability:</strong> Tested on completely unseen code structures with 8-class confusion matrix validation.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Conclusion -->
+        <div class="slide flex-col items-center justify-center text-center p-10 space-card rounded-3xl w-full space-y-6">
+            <span class="text-xs font-bold text-purple-300 bg-purple-500/20 px-4 py-1.5 rounded-full border border-purple-500/30 uppercase tracking-widest">
+                Deliverables & Compliance
+            </span>
+            <h3 class="text-3xl font-bold text-white">100% Problem Criteria Fulfilled</h3>
+            <div class="grid grid-cols-2 gap-4 text-left text-xs max-w-2xl w-full">
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Dataset: 34 samples, 8 misconceptions</div>
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Model: AST + TF-IDF classifier</div>
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Misconception Differentiation Module</div>
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Adaptive Multimodal Interventions</div>
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Resolution Assessment Transfer Tests</div>
+                <div class="p-3 bg-space-950 border border-purple-500/20 rounded-lg">✓ Persistent Learner Mastery Model</div>
+            </div>
+            <p class="text-xs text-slate-400 pt-2 font-mono">Full repository, documentation, batch runners & automated commit log ready for submission.</p>
+        </div>
+
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="max-w-6xl mx-auto w-full flex items-center justify-between border-t border-purple-500/20 pt-4 relative z-10">
+        <button id="prevBtn" class="px-4 py-2 bg-space-850 hover:bg-space-800 text-slate-300 rounded-full text-xs font-semibold transition flex items-center gap-2 border border-purple-500/20">
+            <i class="fa-solid fa-arrow-left"></i> Previous
+        </button>
+        <span class="text-xs text-slate-500 font-mono">Use Left / Right arrow keys to navigate</span>
+        <button id="nextBtn" class="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-full text-xs font-semibold transition flex items-center gap-2 shadow-md shadow-purple-600/30">
+            Next <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <script>
+        // Constellation Particles Background
+        (function() {
+            const canvas = document.getElementById('constellationCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const particleCount = 50;
+            const maxDistance = 130;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 2 + 1,
+                    color: Math.random() > 0.4 ? 'rgba(192, 132, 252, ' : 'rgba(255, 255, 255, '
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + '0.8)';
+                    ctx.fill();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x, dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < maxDistance) {
+                            const alpha = (1 - dist / maxDistance) * 0.25;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // Slide Navigation
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+        const total = slides.length;
+        document.getElementById('totalSlideNum').innerText = total;
+
+        function showSlide(idx) {
+            slides.forEach((s, i) => { s.classList.toggle('active', i === idx); });
+            document.getElementById('currentSlideNum').innerText = idx + 1;
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            current = (current - 1 + total) % total;
+            showSlide(current);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            current = (current + 1) % total;
+            showSlide(current);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                current = (current + 1) % total; showSlide(current);
+            } else if (e.key === 'ArrowLeft') {
+                current = (current - 1 + total) % total; showSlide(current);
+            }
+        });
+    </script>
+</body>
+</html>
