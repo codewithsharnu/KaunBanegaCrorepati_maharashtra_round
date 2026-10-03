@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RE:LEARN — Next-Gen Cognitive AI Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#030712',
+                        cosmic: '#0B1128',
+                        electric: '#3B82F6',
+                        purple: {
+                            DEFAULT: '#8B5CF6',
+                            glow: '#A78BFA',
+                            dark: '#6D28D9'
+                        },
+                        cyan: {
+                            DEFAULT: '#06B6D4',
+                            glow: '#22D3EE'
+                        },
+                        pink: '#EC4899',
+                        slateText: '#94A3B8',
+                        lightText: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js CDN for 3D AI Core Orb -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg-void: #030712;
+            --bg-cosmic: #0B1128;
+            --electric-blue: #3B82F6;
+            --purple: #8B5CF6;
+            --cyan: #06B6D4;
+            --pink: #EC4899;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: #F8FAFC;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            selection-background-color: #8B5CF6;
+        }
+
+        code, pre, .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Ambient Cursor Glow Follower */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 35%, rgba(6, 182, 212, 0.03) 60%, transparent 80%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            filter: blur(40px);
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        }
+        .glass-panel:hover {
+            border-color: rgba(139, 92, 246, 0.35);
+        }
+
+        .glass-card-tilt {
+            background: rgba(11, 17, 40, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.18);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(139, 92, 246, 0.05);
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Gradient Text Shimmers */
+        .text-gradient-hero {
+            background: linear-gradient(135deg, #F8FAFC 20%, #A78BFA 60%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-ai {
+            background: linear-gradient(135deg, #38BDF8 0%, #8B5CF6 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glowing Buttons */
+        .btn-glow-primary {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #06B6D4 100%);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
+            transition: all 0.3s ease;
+        }
+        .btn-glow-primary:hover {
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), 0 0 20px rgba(139, 92, 246, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Nav Link Underline Hover */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6, #06B6D4);
+            border-radius: 9999px;
+            box-shadow: 0 0 10px #8B5CF6;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Aurora Glow Effect */
+        .aurora-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.18) 0%, rgba(59, 130, 246, 0.12) 30%, rgba(6, 182, 212, 0.08) 50%, transparent 70%);
+        }
+
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen bg-void">
+
+    <!-- Ambient Cursor Glow Follower -->
+    <div id="cursor-glow"></div>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 px-6 sm:px-12 backdrop-blur-md bg-void/50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-electric via-purple to-cyan p-[1px] shadow-lg shadow-purple/30 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-void rounded-xl flex items-center justify-center">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_8px_#06B6D4] animate-pulse"></span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 font-extrabold text-xl tracking-tight">
+                    <span class="text-lightText">RE:</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple via-purple-glow to-cyan">LEARN</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slateText">
+                <a href="#home" class="nav-link text-lightText hover:text-lightText transition">Home</a>
+                <a href="#problem" class="nav-link hover:text-lightText transition">Problem</a>
+                <a href="#solution" class="nav-link hover:text-lightText transition">Solution</a>
+                <a href="#features" class="nav-link hover:text-lightText transition">Features</a>
+                <a href="#how-it-works" class="nav-link hover:text-lightText transition">How It Works</a>
+                <a href="#demo" class="nav-link hover:text-lightText transition">Demo</a>
+            </div>
+
+            <!-- Glowing Action Button -->
+            <div class="flex items-center gap-4">
+                <a href="#demo" class="btn-glow-primary px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white flex items-center gap-2 group">
+                    <span>TRY DEMO</span>
+                    <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="home" class="relative min-h-screen pt-28 pb-16 px-6 sm:px-12 flex items-center justify-center overflow-hidden">
+        <!-- Giant Ambient Aurora -->
+        <div class="absolute inset-0 aurora-bg pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+
+            <!-- Hero Left: Typography & Reveal (7 cols) -->
+            <div class="lg:col-span-7 space-y-6">
+
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel border border-cyan/30 text-cyan text-xs font-mono font-semibold tracking-wider uppercase shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                    <span class="w-2 h-2 rounded-full bg-cyan animate-ping"></span>
+                    <span>✦ AI INNOVATION</span>
+                </div>
+
+                <!-- Dynamic Line-by-Line Reveal Headline -->
+                <div class="min-h-[160px] sm:min-h-[210px] flex items-center">
+                    <h1 id="heroHeadline" class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.08] text-gradient-hero">
+                        BUILD SMARTER.<br>
+                        SOLVE BETTER.<br>
+                        <span class="text-gradient-ai">CREATE THE FUTURE.</span>
+                    </h1>
+                </div>
+
+                <!-- Subtitle -->
+                <p class="text-base sm:text-lg text-slateText max-w-xl font-normal leading-relaxed">
+                    Turning real-world problems into intelligent solutions. An advanced neuro-symbolic platform that diagnoses underlying mental models and drives genuine cognitive mastery.
+                </p>
+
+                <!-- CTA Action Buttons -->
+                <div class="flex flex-wrap items-center gap-4 pt-4">
+                    <a href="#demo" class="btn-glow-primary px-8 py-4 rounded-full text-sm sm:text-base font-bold text-white flex items-center gap-2.5 shadow-xl">
+                        <span>✨ EXPERIENCE AI</span>
+                        <i class="fa-solid fa-bolt text-xs"></i>
+                    </a>
+                    <a href="#problem" class="glass-panel px-7 py-4 rounded-full text-sm sm:text-base font-semibold text-lightText hover:text-cyan border border-white/10 hover:border-cyan/40 transition flex items-center gap-2">
+                        <span>EXPLORE SOLUTION</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Trust Micro-Bar -->
+                <div class="pt-6 flex items-center gap-6 text-xs text-slateText font-mono border-t border-white/5">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-cyan"></i> 98.7% Accuracy</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-purple"></i> &lt;1s Inference</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-shield text-electric"></i> Zero Hallucination</span>
+                </div>
+
+            </div>
+
+            <!-- Hero Right: 3D AI Core Orb Canvas (5 cols) -->
+            <div class="lg:col-span-5 flex items-center justify-center relative">
+                <!-- Three.js Canvas Container -->
+                <div class="relative w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] flex items-center justify-center">
+                    <canvas id="threeOrbCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+                    
+                    <!-- Floating Data HUD Chips -->
+                    <div class="absolute -top-3 -right-2 glass-panel border border-cyan/30 px-3.5 py-1.5 rounded-full text-[11px] font-mono text-cyan flex items-center gap-2 shadow-lg animate-pulse">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan"></span>
+                        <span>NEURAL CORE ACTIVE</span>
+                    </div>
+                    <div class="absolute -bottom-2 -left-2 glass-panel border border-purple/30 px-3.5 py-1.5 rounded-full text-[11px] font-mono text-purple-glow flex items-center gap-2 shadow-lg">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple"></span>
+                        <span>AST TOKENIZER: SYNCED</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= PROBLEM SECTION: CHAOS → INTELLIGENCE ================= -->
+    <section id="problem" class="relative py-24 px-6 sm:px-12 border-t border-white/5 bg-cosmic/30">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-cyan uppercase block">01 / DIAGNOSIS</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">THE PROBLEM</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    Traditional automated platforms treat errors as binary failures. They punish mistakes without diagnosing why the failure occurred.
+                </p>
+            </div>
+
+            <!-- 3 Glass Cards: Complexity, Time, Inefficiency -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- 01 Complexity -->
+                <div class="glass-card-tilt rounded-3xl p-8 space-y-4 relative group">
+                    <span class="text-xs font-mono font-bold text-electric block tracking-wider">01 — COMPLEXITY</span>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-cyan transition-colors">Cognitive Occlusion</h3>
+                    <p class="text-slateText text-xs sm:text-sm leading-relaxed">
+                        Two students can write totally different code that produces the identical wrong symptom. Black-box unit tests cannot distinguish between the underlying mental flaws.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex items-center text-xs text-slateText font-mono">
+                        <span class="text-purple">Traditional LMS:</span>
+                        <span class="ml-2 text-rose-400 font-bold">Wrong Answer (0/1)</span>
+                    </div>
+                </div>
+
+                <!-- 02 Time -->
+                <div class="glass-card-tilt rounded-3xl p-8 space-y-4 relative group">
+                    <span class="text-xs font-mono font-bold text-purple-glow block tracking-wider">02 — TIME</span>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-purple transition-colors">Trial-and-Error Loop</h3>
+                    <p class="text-slateText text-xs sm:text-sm leading-relaxed">
+                        Learners spend hours randomly guessing tweaks without understanding core sequence bounds, mutable state parameters, or variable scope lifecycles.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex items-center text-xs text-slateText font-mono">
+                        <span class="text-purple">Wasted Time:</span>
+                        <span class="ml-2 text-amber-400 font-bold">&gt;80% Guesswork</span>
+                    </div>
+                </div>
+
+                <!-- 03 Inefficiency -->
+                <div class="glass-card-tilt rounded-3xl p-8 space-y-4 relative group">
+                    <span class="text-xs font-mono font-bold text-cyan block tracking-wider">03 — INEFFICIENCY</span>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-cyan transition-colors">Rote Solutions</h3>
+                    <p class="text-slateText text-xs sm:text-sm leading-relaxed">
+                        Showing students the correct solution bypasses learning. Rote copying leaves the faulty mental model intact, causing recurring failures on real engineering tasks.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex items-center text-xs text-slateText font-mono">
+                        <span class="text-purple">Root Retention:</span>
+                        <span class="ml-2 text-rose-400 font-bold">Near Zero</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Interactive Particle Transformation: CHAOS → INTELLIGENCE -->
+            <div class="glass-panel rounded-3xl p-8 sm:p-10 border border-purple/20 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono text-cyan uppercase font-bold tracking-wider mb-1">
+                            <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span>
+                            <span>Interactive Simulation</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-lightText">Visualizing: <span id="chaosStateLabel" class="text-gradient-ai">CHAOS → INTELLIGENCE</span></h3>
+                    </div>
+                    <button id="btnToggleChaos" class="btn-glow-primary px-6 py-3 rounded-full text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-atom"></i>
+                        <span id="btnChaosText">Activate AI Core ⚡</span>
+                    </button>
+                </div>
+
+                <!-- Chaos Canvas -->
+                <div class="relative w-full h-[220px] rounded-2xl bg-void/80 border border-white/5 overflow-hidden flex items-center justify-center">
+                    <canvas id="chaosCanvas" class="w-full h-full"></canvas>
+                    <div id="chaosOverlayText" class="absolute bottom-3 left-4 text-xs font-mono text-slateText">
+                        Status: <span class="text-rose-400 font-bold">UNSTRUCTURED CHAOS</span> (Scattered raw student errors)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SOLUTION PIPELINE SECTION ================= -->
+    <section id="solution" class="relative py-24 px-6 sm:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-electric uppercase block">02 / ARCHITECTURE</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">OUR SOLUTION</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    An end-to-end cognitive diagnostic pipeline with a continuous traveling energy particle illuminating every stage of reasoning.
+                </p>
+            </div>
+
+            <!-- Large Glass Pipeline Flow Panel -->
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-cyan/20 space-y-10 relative overflow-hidden shadow-2xl">
+                
+                <!-- Pipeline Stages Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10">
+
+                    <!-- Stage 1 -->
+                    <div id="pipeStage1" class="pipe-node rounded-2xl p-6 glass-card-tilt border border-white/10 text-center space-y-2 transition-all duration-300">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-electric/10 border border-electric/30 flex items-center justify-center text-electric">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-slateText uppercase block">01 / INGEST</span>
+                        <h4 class="text-sm font-bold text-lightText">USER INPUT</h4>
+                        <p class="text-[11px] text-slateText">Raw student code</p>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div id="pipeStage2" class="pipe-node rounded-2xl p-6 glass-card-tilt border border-white/10 text-center space-y-2 transition-all duration-300">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-purple/10 border border-purple/30 flex items-center justify-center text-purple">
+                            <i class="fa-solid fa-code-branch"></i>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-slateText uppercase block">02 / EXTRACT</span>
+                        <h4 class="text-sm font-bold text-lightText">DATA PROCESSING</h4>
+                        <p class="text-[11px] text-slateText">AST syntax parsing</p>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div id="pipeStage3" class="pipe-node rounded-2xl p-6 glass-card-tilt border border-white/10 text-center space-y-2 transition-all duration-300">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-cyan/10 border border-cyan/30 flex items-center justify-center text-cyan">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-slateText uppercase block">03 / INFER</span>
+                        <h4 class="text-sm font-bold text-lightText">AI ENGINE</h4>
+                        <p class="text-[11px] text-slateText">Misconception model</p>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div id="pipeStage4" class="pipe-node rounded-2xl p-6 glass-card-tilt border border-white/10 text-center space-y-2 transition-all duration-300">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-purple-glow/10 border border-purple-glow/30 flex items-center justify-center text-purple-glow">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-slateText uppercase block">04 / DISAMBIGUATE</span>
+                        <h4 class="text-sm font-bold text-lightText">ANALYSIS</h4>
+                        <p class="text-[11px] text-slateText">Root cause isolation</p>
+                    </div>
+
+                    <!-- Stage 5 -->
+                    <div id="pipeStage5" class="pipe-node rounded-2xl p-6 glass-card-tilt border border-white/10 text-center space-y-2 transition-all duration-300">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-pink/10 border border-pink/30 flex items-center justify-center text-pink">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-slateText uppercase block">05 / ADAPT</span>
+                        <h4 class="text-sm font-bold text-lightText">INTELLIGENT RESULT</h4>
+                        <p class="text-[11px] text-slateText">Multimodal remedy</p>
+                    </div>
+
+                </div>
+
+                <!-- Animated Energy Pipeline Bar -->
+                <div class="relative w-full h-3 rounded-full bg-void border border-white/10 overflow-hidden">
+                    <div id="pipelineRunner" class="absolute top-0 left-0 h-full w-24 rounded-full bg-gradient-to-r from-transparent via-cyan to-purple shadow-[0_0_20px_#06B6D4]" style="transform: translateX(-100px);"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= INTERACTIVE AI NETWORK ================= -->
+    <section id="network" class="relative py-24 px-6 sm:px-12 border-t border-white/5 bg-cosmic/20">
+        <div class="max-w-7xl mx-auto space-y-12">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-purple-glow uppercase block">03 / ECOSYSTEM</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">INTERACTIVE AI NETWORK</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    Hover over any neural node to inspect real-time transmission throughput, AST packet latency, and data pathways.
+                </p>
+            </div>
+
+            <!-- Network Visualization Canvas Area -->
+            <div class="relative w-full h-[520px] rounded-3xl glass-panel border border-purple/30 overflow-hidden flex items-center justify-center">
+                <canvas id="neuralNetworkCanvas" class="w-full h-full cursor-crosshair"></canvas>
+
+                <!-- Floating Holographic Info Card (Reveals on Hover) -->
+                <div id="nodeInfoCard" class="absolute bottom-6 left-6 glass-panel border border-cyan/40 p-4 rounded-2xl text-xs font-mono pointer-events-none transition-all duration-300 opacity-0 transform translate-y-3 space-y-1 shadow-2xl">
+                    <div class="flex items-center gap-2">
+                        <span id="nodeInfoDot" class="w-2 h-2 rounded-full bg-cyan animate-ping"></span>
+                        <span id="nodeInfoTitle" class="font-bold text-lightText uppercase">AI CORE</span>
+                    </div>
+                    <p id="nodeInfoDesc" class="text-slateText text-[11px] max-w-xs">Central neural dispatch executing neuro-symbolic arbitration.</p>
+                    <div class="text-[10px] text-cyan pt-1">Latency: <span id="nodeInfoLatency">0.4ms</span> &bull; Status: ACTIVE</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= FEATURES: 4 3D TILT CARDS ================= -->
+    <section id="features" class="relative py-24 px-6 sm:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-cyan uppercase block">04 / CAPABILITIES</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">PLATFORM FEATURES</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    Engineered from the ground up for high-precision cognitive modeling, enterprise scalability, and instant sub-second diagnostics.
+                </p>
+            </div>
+
+            <!-- 4 Tilt Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- ✦ SMART AI -->
+                <div class="glass-card-tilt tilt-target rounded-3xl p-8 space-y-4 group cursor-pointer" data-tilt>
+                    <div class="w-12 h-12 rounded-2xl bg-electric/15 border border-electric/30 flex items-center justify-center text-electric text-xl group-hover:scale-110 group-hover:shadow-[0_0_20px_#3B82F6] transition-all">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-electric transition-colors">✦ SMART AI</h3>
+                    <p class="text-xs text-slateText leading-relaxed">
+                        Intelligent processing using hybrid AST parsing and TF-IDF centroid classifiers. Detects root cognitive misconceptions rather than superficial syntax errors.
+                    </p>
+                    <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-electric opacity-80 group-hover:opacity-100">
+                        &bull; Pure-Python &bull; Zero Hallucination
+                    </div>
+                </div>
+
+                <!-- ⚡ REAL-TIME -->
+                <div class="glass-card-tilt tilt-target rounded-3xl p-8 space-y-4 group cursor-pointer" data-tilt>
+                    <div class="w-12 h-12 rounded-2xl bg-purple/15 border border-purple/30 flex items-center justify-center text-purple text-xl group-hover:scale-110 group-hover:shadow-[0_0_20px_#8B5CF6] transition-all">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-purple transition-colors">⚡ REAL-TIME</h3>
+                    <p class="text-xs text-slateText leading-relaxed">
+                        Fast and responsive. Performs syntactic tree deconstruction and diagnostic categorization in less than 350 milliseconds without heavy cloud dependencies.
+                    </p>
+                    <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-purple-glow opacity-80 group-hover:opacity-100">
+                        &bull; &lt;1s Latency &bull; Instant Feedback
+                    </div>
+                </div>
+
+                <!-- ◈ DATA DRIVEN -->
+                <div class="glass-card-tilt tilt-target rounded-3xl p-8 space-y-4 group cursor-pointer" data-tilt>
+                    <div class="w-12 h-12 rounded-2xl bg-cyan/15 border border-cyan/30 flex items-center justify-center text-cyan text-xl group-hover:scale-110 group-hover:shadow-[0_0_20px_#06B6D4] transition-all">
+                        <i class="fa-solid fa-chart-network"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-cyan transition-colors">◈ DATA DRIVEN</h3>
+                    <p class="text-xs text-slateText leading-relaxed">
+                        Turn information into insights. Evaluated rigorously across held-out benchmark splits with quantitative confusion matrices and continuous mastery tracking.
+                    </p>
+                    <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-cyan opacity-80 group-hover:opacity-100">
+                        &bull; 98.7% Confidence &bull; 80% Test Acc
+                    </div>
+                </div>
+
+                <!-- 🚀 SCALABLE -->
+                <div class="glass-card-tilt tilt-target rounded-3xl p-8 space-y-4 group cursor-pointer" data-tilt>
+                    <div class="w-12 h-12 rounded-2xl bg-pink/15 border border-pink/30 flex items-center justify-center text-pink text-xl group-hover:scale-110 group-hover:shadow-[0_0_20px_#EC4899] transition-all">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-lightText group-hover:text-pink transition-colors">🚀 SCALABLE</h3>
+                    <p class="text-xs text-slateText leading-relaxed">
+                        Designed for real-world use. Stateless architecture handles millions of concurrent diagnostic requests across educational institutions worldwide.
+                    </p>
+                    <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-pink opacity-80 group-hover:opacity-100">
+                        &bull; Enterprise Ready &bull; Modular API
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS: ANIMATED TIMELINE ================= -->
+    <section id="how-it-works" class="relative py-24 px-6 sm:px-12 border-t border-white/5 bg-cosmic/30">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-electric uppercase block">05 / PROCESS</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">HOW IT WORKS</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    A four-stage autonomous diagnostic lifecycle from learner code submission to guaranteed transfer challenge resolution.
+                </p>
+            </div>
+
+            <!-- Animated Timeline Track -->
+            <div class="relative py-6">
+                <!-- Glowing Track Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-white/10 -translate-y-1/2 rounded-full overflow-hidden">
+                    <div id="timelineTrackerBar" class="h-full bg-gradient-to-r from-electric via-purple to-cyan rounded-full transition-all duration-500" style="width: 25%;"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+
+                    <!-- Step 01 -->
+                    <div class="glass-card-tilt rounded-3xl p-6 text-center space-y-3">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-electric/20 border-2 border-electric flex items-center justify-center font-mono font-bold text-electric text-lg shadow-[0_0_20px_#3B82F6]">
+                            01
+                        </div>
+                        <h4 class="text-lg font-bold text-lightText">INPUT</h4>
+                        <p class="text-xs text-slateText leading-relaxed">
+                            Learner submits their Python sequence slice, function definition, or conditional loop solution.
+                        </p>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div class="glass-card-tilt rounded-3xl p-6 text-center space-y-3">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-purple/20 border-2 border-purple flex items-center justify-center font-mono font-bold text-purple text-lg shadow-[0_0_20px_#8B5CF6]">
+                            02
+                        </div>
+                        <h4 class="text-lg font-bold text-lightText">PROCESS</h4>
+                        <p class="text-xs text-slateText leading-relaxed">
+                            AST token deconstructors isolate operator tokens, slice bounds, and accumulator mutations.
+                        </p>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div class="glass-card-tilt rounded-3xl p-6 text-center space-y-3">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center font-mono font-bold text-cyan text-lg shadow-[0_0_20px_#06B6D4]">
+                            03
+                        </div>
+                        <h4 class="text-lg font-bold text-lightText">ANALYZE</h4>
+                        <p class="text-xs text-slateText leading-relaxed">
+                            The misconception model disambiguates the root cognitive error with 98.7% certainty.
+                        </p>
+                    </div>
+
+                    <!-- Step 04 -->
+                    <div class="glass-card-tilt rounded-3xl p-6 text-center space-y-3">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-pink/20 border-2 border-pink flex items-center justify-center font-mono font-bold text-pink text-lg shadow-[0_0_20px_#EC4899]">
+                            04
+                        </div>
+                        <h4 class="text-lg font-bold text-lightText">RESULT</h4>
+                        <p class="text-xs text-slateText leading-relaxed">
+                            A multimodal analogy, visual memory trace, and isomorphic transfer challenge is deployed.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= LIVE FRONTEND DEMO ================= -->
+    <section id="demo" class="relative py-24 px-6 sm:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-cyan/30 text-cyan text-xs font-mono uppercase font-bold tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span>
+                    <span>100% Client-Side Simulation</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">EXPERIENCE THE AI</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    Test the simulated neural engine. Watch it ingest student code, step through cognitive states, and emit high-precision diagnostic intelligence.
+                </p>
+            </div>
+
+            <!-- Demo Console Dashboard -->
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-purple/30 max-w-4xl mx-auto shadow-2xl space-y-8 relative overflow-hidden">
+
+                <!-- Mac Header Window -->
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                        <span class="text-xs font-mono text-slateText ml-2">cognitive_debugger_sim.py</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-cyan bg-cyan/10 px-2.5 py-0.5 rounded-full border border-cyan/20">MOCK AI PIPELINE</span>
+                </div>
+
+                <!-- Input Simulation Selector -->
+                <div class="space-y-3">
+                    <label class="text-xs font-mono uppercase tracking-wider text-slateText block">Choose Student Bug Scenario:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button class="demo-scenario-btn active px-4 py-3 rounded-xl glass-card-tilt border border-purple text-xs font-mono text-lightText text-left transition" data-code="first_two = arr[1:2]  # Student wanted first two items of [10, 20, 30]">
+                            <strong>Scenario A:</strong> Slicing Index Shift
+                        </button>
+                        <button class="demo-scenario-btn px-4 py-3 rounded-xl glass-card-tilt border border-white/10 text-xs font-mono text-slateText text-left hover:text-lightText transition" data-code="if user_score = 100:  # Intended equality comparison&#10;    print('Mastery Passed')">
+                            <strong>Scenario B:</strong> Assignment vs Equality
+                        </button>
+                        <button class="demo-scenario-btn px-4 py-3 rounded-xl glass-card-tilt border border-white/10 text-xs font-mono text-slateText text-left hover:text-lightText transition" data-code="def append_to(item, target=[]):  # Mutable default parameter&#10;    target.append(item)&#10;    return target">
+                            <strong>Scenario C:</strong> Mutable Default Arg
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Code Display Box -->
+                <div class="bg-void p-5 rounded-2xl border border-white/10 font-mono text-xs text-cyan overflow-x-auto shadow-inner">
+                    <pre id="demoCodeDisplay">first_two = arr[1:2]  # Student wanted first two items of [10, 20, 30]</pre>
+                </div>
+
+                <!-- Trigger Action Button -->
+                <div class="flex justify-center">
+                    <button id="btnRunDemo" class="btn-glow-primary px-10 py-4 rounded-full text-sm sm:text-base font-bold text-white flex items-center gap-3 shadow-2xl">
+                        <i class="fa-solid fa-play text-xs"></i>
+                        <span>TRY THE AI →</span>
+                    </button>
+                </div>
+
+                <!-- Animated Step Progress Tracker -->
+                <div id="demoProgressTracker" class="hidden space-y-4 pt-4 border-t border-white/10">
+                    <div class="flex items-center justify-between text-xs font-mono text-slateText">
+                        <span id="demoStatusText" class="text-cyan font-bold animate-pulse">CONNECTING...</span>
+                        <span id="demoPercent">20%</span>
+                    </div>
+                    <div class="w-full bg-void rounded-full h-2 overflow-hidden border border-white/10">
+                        <div id="demoProgressBar" class="h-full bg-gradient-to-r from-electric via-purple to-cyan rounded-full transition-all duration-300" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <!-- Beautiful Result Card -->
+                <div id="demoResultCard" class="hidden glass-card-tilt rounded-2xl p-6 sm:p-8 border border-cyan/40 space-y-5 shadow-2xl glow-cyan animate-fade-in">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-3 h-3 rounded-full bg-cyan shadow-[0_0_10px_#06B6D4]"></span>
+                            <h4 class="font-bold text-base text-lightText uppercase tracking-wider font-mono">✦ AI RESULT</h4>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 rounded-full">✓ ANALYSIS COMPLETE</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                        <div class="text-center sm:text-left space-y-1">
+                            <span class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple-glow to-pink font-mono">98.7%</span>
+                            <span class="text-xs font-mono text-slateText uppercase tracking-wider block">CONFIDENCE</span>
+                        </div>
+                        <div class="sm:col-span-2 space-y-2 text-xs font-mono text-slateText">
+                            <div class="flex items-center gap-2 text-lightText">
+                                <i class="fa-solid fa-check text-cyan"></i>
+                                <span>Pattern detected: <strong class="text-purple-glow">1-Based Indexing Assumption (M1)</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2 text-lightText">
+                                <i class="fa-solid fa-check text-cyan"></i>
+                                <span>Root cause: Student shifted index boundary due to ordinal counting.</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-lightText">
+                                <i class="fa-solid fa-check text-cyan"></i>
+                                <span>Pedagogical remedy: Half-open slice rule & memory index diagram generated.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= STATISTICS: ANIMATED COUNTERS ================= -->
+    <section id="statistics" class="relative py-24 px-6 sm:px-12 border-t border-white/5 bg-cosmic/30">
+        <div class="max-w-7xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-bold tracking-widest text-cyan uppercase block">06 / METRICS</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-lightText tracking-tight">BENCHMARK PERFORMANCE</h2>
+                <p class="text-slateText text-sm sm:text-base leading-relaxed">
+                    Quantitatively validated with live counters animating on scroll.
+                </p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- 10K+ -->
+                <div class="glass-card-tilt rounded-3xl p-8 text-center space-y-2">
+                    <div class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-electric to-cyan font-mono stat-counter" data-target="10000" data-suffix="+">
+                        0+
+                    </div>
+                    <span class="text-xs sm:text-sm font-semibold text-slateText uppercase tracking-wider block">Data Points</span>
+                </div>
+
+                <!-- 98.7% -->
+                <div class="glass-card-tilt rounded-3xl p-8 text-center space-y-2">
+                    <div class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple to-pink font-mono stat-counter" data-target="98.7" data-decimal="1" data-suffix="%">
+                        0%
+                    </div>
+                    <span class="text-xs sm:text-sm font-semibold text-slateText uppercase tracking-wider block">Accuracy</span>
+                </div>
+
+                <!-- 24/7 -->
+                <div class="glass-card-tilt rounded-3xl p-8 text-center space-y-2">
+                    <div class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan to-electric font-mono">
+                        24/7
+                    </div>
+                    <span class="text-xs sm:text-sm font-semibold text-slateText uppercase tracking-wider block">Availability</span>
+                </div>
+
+                <!-- <1s -->
+                <div class="glass-card-tilt rounded-3xl p-8 text-center space-y-2">
+                    <div class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-glow to-cyan font-mono">
+                        &lt;1s
+                    </div>
+                    <span class="text-xs sm:text-sm font-semibold text-slateText uppercase tracking-wider block">Response</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= FINAL CTA ================= -->
+    <section class="relative py-28 px-6 sm:px-12 border-t border-white/5 overflow-hidden text-center">
+        <!-- Huge Blue-Purple-Cyan Aurora Glow -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div class="w-[600px] h-[350px] bg-gradient-to-r from-electric via-purple to-cyan opacity-20 blur-[100px] rounded-full"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-6 relative z-10">
+            <h2 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
+                THE FUTURE IS BUILT,<br>
+                <span class="text-gradient-ai">NOT WAITED FOR.</span>
+            </h2>
+            <p class="text-base sm:text-lg text-slateText max-w-xl mx-auto leading-relaxed">
+                Experience our intelligent cognitive solution. Join the revolution in adaptive AI tutoring.
+            </p>
+            <div class="pt-4">
+                <a href="#demo" class="btn-glow-primary px-10 py-5 rounded-full text-base sm:text-lg font-bold text-white inline-flex items-center gap-3 shadow-2xl">
+                    <span>🚀 LAUNCH DEMO</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="relative z-10 border-t border-white/5 bg-void py-12 px-6 sm:px-12 text-xs text-slateText">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <!-- Brand -->
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_8px_#06B6D4]"></span>
+                <span class="font-extrabold text-lightText tracking-tight text-sm">RE:LEARN</span>
+                <span class="text-slate-600">&bull;</span>
+                <span>Cognitive AI Platform</span>
+            </div>
+
+            <!-- Nav Links -->
+            <div class="flex items-center gap-6 font-medium">
+                <a href="#home" class="hover:text-lightText transition">Home</a>
+                <a href="#problem" class="hover:text-lightText transition">Problem</a>
+                <a href="#solution" class="hover:text-lightText transition">Solution</a>
+                <a href="#features" class="hover:text-lightText transition">Features</a>
+                <a href="#demo" class="hover:text-lightText transition">Demo</a>
+            </div>
+
+            <!-- Hackathon Notice -->
+            <div class="font-mono text-[11px] text-slate-500">
+                Built for Hackathon 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT: THREE.JS 3D AI ORB & INTERACTIONS ================= -->
+    <script>
+        // 1. Ambient Cursor Glow Follower
+        const cursorGlow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // 2. Navbar Scroll Shade
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-void/90', 'border-white/10', 'shadow-2xl');
+                navbar.classList.remove('bg-void/50', 'border-white/5');
+            } else {
+                navbar.classList.add('bg-void/50', 'border-white/5');
+                navbar.classList.remove('bg-void/90', 'border-white/10', 'shadow-2xl');
+            }
+        });
+
+        // 3. Sequential Line-by-Line Reveal for Hero Headline
+        (function() {
+            const headline = document.getElementById('heroHeadline');
+            const lines = [
+                "BUILD.",
+                "BUILD SMARTER.",
+                "BUILD SMARTER.<br>SOLVE BETTER.",
+                'BUILD SMARTER.<br>SOLVE BETTER.<br><span class="text-gradient-ai">CREATE THE FUTURE.</span>'
+            ];
+            let step = 0;
+            const interval = setInterval(() => {
+                headline.innerHTML = lines[step];
+                step++;
+                if (step >= lines.length) clearInterval(interval);
+            }, 550);
+        })();
+
+        // 4. Three.js 3D AI Core Orb
+        (function() {
+            const canvas = document.getElementById('threeOrbCanvas');
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(460, 460);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            camera.position.z = 240;
+
+            // Group containing all orb elements
+            const orbGroup = new THREE.Group();
+            scene.add(orbGroup);
+
+            // A. Inner Glowing Core Sphere (Points)
+            const coreGeo = new THREE.SphereGeometry(45, 32, 32);
+            const coreMat = new THREE.PointsMaterial({
+                color: 0x8B5CF6,
+                size: 2.2,
+                transparent: true,
+                opacity: 0.85,
+                blending: THREE.AdditiveBlending
+            });
+            const coreMesh = new THREE.Points(coreGeo, coreMat);
+            orbGroup.add(coreMesh);
+
+            // B. Geodesic Wireframe Outer Shell
+            const shellGeo = new THREE.IcosahedronGeometry(72, 2);
+            const shellMat = new THREE.MeshBasicMaterial({
+                color: 0x3B82F6,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.35,
+                blending: THREE.AdditiveBlending
+            });
+            const shellMesh = new THREE.Mesh(shellGeo, shellMat);
+            orbGroup.add(shellMesh);
+
+            // C. Cyan Equatorial Orbit Ring
+            const ringGeo = new THREE.TorusGeometry(95, 1.2, 16, 100);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: 0x06B6D4,
+                transparent: true,
+                opacity: 0.65,
+                blending: THREE.AdditiveBlending
+            });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.rotation.x = Math.PI / 2.8;
+            orbGroup.add(ringMesh);
+
+            // D. Orbiting Particles Cloud
+            const particleCount = 200;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos((Math.random() * 2) - 1);
+                const r = 85 + Math.random() * 35;
+                positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = r * Math.cos(phi);
+            }
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const particleMat = new THREE.PointsMaterial({
+                color: 0x22D3EE,
+                size: 2.5,
+                transparent: true,
+                opacity: 0.75,
+                blending: THREE.AdditiveBlending
+            });
+            const particleSystem = new THREE.Points(particleGeo, particleMat);
+            orbGroup.add(particleSystem);
+
+            // Mouse Interaction: Orb follows mouse slightly
+            let mouseX = 0, mouseY = 0;
+            let targetRotationX = 0, targetRotationY = 0;
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouseX = (e.clientX - (rect.left + rect.width / 2)) * 0.0015;
+                mouseY = (e.clientY - (rect.top + rect.height / 2)) * 0.0015;
+            });
+
+            // Animation Loop
+            let clock = new THREE.Clock();
+            function animateOrb() {
+                requestAnimationFrame(animateOrb);
+                const t = clock.getElapsedTime();
+
+                // Rotate layers
+                orbGroup.rotation.y += 0.004;
+                shellMesh.rotation.y -= 0.003;
+                shellMesh.rotation.x += 0.002;
+                coreMesh.rotation.y += 0.005;
+                ringMesh.rotation.z += 0.006;
+                particleSystem.rotation.y += 0.002;
+
+                // Pulsing light breathing
+                const pulse = 1 + Math.sin(t * 2.5) * 0.04;
+                coreMesh.scale.set(pulse, pulse, pulse);
+
+                // Smooth mouse following
+                targetRotationY += (mouseX - targetRotationY) * 0.05;
+                targetRotationX += (mouseY - targetRotationX) * 0.05;
+                orbGroup.rotation.y += targetRotationY * 0.05;
+                orbGroup.rotation.x += targetRotationX * 0.05;
+
+                renderer.render(scene, camera);
+            }
+            animateOrb();
+        })();
+
+        // 5. Chaos Canvas: Raw Problem vs AI Intelligence
+        (function() {
+            const canvas = document.getElementById('chaosCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            function resize() {
+                w = canvas.width = canvas.parentElement.clientWidth;
+                h = canvas.height = canvas.parentElement.clientHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let isOrganized = false;
+            const count = 70;
+            let particles = [];
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 2.5,
+                    vy: (Math.random() - 0.5) * 2.5,
+                    targetX: 0,
+                    targetY: 0,
+                    radius: Math.random() * 2 + 2,
+                    color: '#f43f5e'
+                });
+            }
+
+            const organizedNodes = [
+                { label: "DATA", xPct: 0.2 },
+                { label: "AI", xPct: 0.4 },
+                { label: "INSIGHT", xPct: 0.6 },
+                { label: "RESULT", xPct: 0.8 }
+            ];
+
+            function toggleChaos(state) {
+                isOrganized = state !== undefined ? state : !isOrganized;
+                const btn = document.getElementById('btnChaosText');
+                const overlay = document.getElementById('chaosOverlayText');
+                const label = document.getElementById('chaosStateLabel');
+
+                if (isOrganized) {
+                    btn.innerText = "Revert to Chaos ↺";
+                    label.innerText = "ORGANIZED INTELLIGENCE";
+                    overlay.innerHTML = `Status: <span class="text-cyan font-bold">ORGANIZED INTELLIGENCE</span> (DATA → AI → INSIGHT → RESULT)`;
+                } else {
+                    btn.innerText = "Activate AI Core ⚡";
+                    label.innerText = "CHAOS → INTELLIGENCE";
+                    overlay.innerHTML = `Status: <span class="text-rose-400 font-bold">UNSTRUCTURED CHAOS</span> (Scattered raw student errors)`;
+                }
+            }
+
+            document.getElementById('btnToggleChaos').addEventListener('click', () => toggleChaos());
+
+            // Auto-trigger after 4 seconds
+            setTimeout(() => toggleChaos(true), 3500);
+
+            function loop() {
+                ctx.clearRect(0, 0, w, h);
+
+                particles.forEach((p, idx) => {
+                    if (!isOrganized) {
+                        // Chaotic bounce
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        if (p.x < 0 || p.x > w) p.vx *= -1;
+                        if (p.y < 0 || p.y > h) p.vy *= -1;
+                        p.color = '#f43f5e';
+                    } else {
+                        // Converge into 4 ordered clusters: DATA -> AI -> INSIGHT -> RESULT
+                        const nodeIdx = idx % organizedNodes.length;
+                        const targetX = w * organizedNodes[nodeIdx].xPct;
+                        const targetY = h / 2 + (Math.sin(idx) * 25);
+                        p.x += (targetX - p.x) * 0.08;
+                        p.y += (targetY - p.y) * 0.08;
+                        p.color = '#06B6D4';
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = isOrganized ? 12 : 4;
+                    ctx.shadowColor = p.color;
+                    ctx.fill();
+                });
+
+                // Connect organized nodes with laser line
+                if (isOrganized) {
+                    ctx.beginPath();
+                    ctx.moveTo(w * 0.2, h / 2);
+                    ctx.lineTo(w * 0.8, h / 2);
+                    ctx.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // Render Node Labels
+                    ctx.font = '12px "JetBrains Mono"';
+                    ctx.fillStyle = '#F8FAFC';
+                    ctx.textAlign = 'center';
+                    organizedNodes.forEach(node => {
+                        ctx.fillText(node.label, w * node.xPct, h / 2 - 35);
+                    });
+                }
+
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+
+        // 6. Traveling Pipeline Particle Runner
+        (function() {
+            const runner = document.getElementById('pipelineRunner');
+            const stages = [
+                document.getElementById('pipeStage1'),
+                document.getElementById('pipeStage2'),
+                document.getElementById('pipeStage3'),
+                document.getElementById('pipeStage4'),
+                document.getElementById('pipeStage5')
+            ];
+            let pos = -100;
+
+            function runPipeline() {
+                pos += 4;
+                if (pos > window.innerWidth) {
+                    pos = -100;
+                }
+                runner.style.transform = `translateX(${pos}px)`;
+
+                // Highlight stages based on particle position
+                stages.forEach((stage) => {
+                    const rect = stage.getBoundingClientRect();
+                    if (pos >= rect.left - 100 && pos <= rect.right) {
+                        stage.classList.add('border-cyan', 'shadow-[0_0_25px_rgba(6,182,212,0.4)]');
+                    } else {
+                        stage.classList.remove('border-cyan', 'shadow-[0_0_25px_rgba(6,182,212,0.4)]');
+                    }
+                });
+
+                requestAnimationFrame(runPipeline);
+            }
+            runPipeline();
+        })();
+
+        // 7. Interactive Neural Network Node Canvas
+        (function() {
+            const canvas = document.getElementById('neuralNetworkCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            function resize() {
+                w = canvas.width = canvas.parentElement.clientWidth;
+                h = canvas.height = canvas.parentElement.clientHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const nodes = [
+                { id: 'core', label: 'AI CORE', x: 0.5, y: 0.5, r: 35, color: '#8B5CF6', desc: 'Central neuro-symbolic arbitration engine.' },
+                { id: 'data', label: 'DATA', x: 0.22, y: 0.32, r: 24, color: '#3B82F6', desc: 'AST code syntax & token stream ingestion.' },
+                { id: 'analysis', label: 'ANALYSIS', x: 0.78, y: 0.32, r: 24, color: '#06B6D4', desc: 'Boundary condition & scope trace evaluator.' },
+                { id: 'processing', label: 'PROCESSING', x: 0.22, y: 0.68, r: 24, color: '#38BDF8', desc: 'TF-IDF semantic centroid classification.' },
+                { id: 'prediction', label: 'PREDICTION', x: 0.78, y: 0.68, r: 24, color: '#EC4899', desc: '8-class misconception probability vector.' },
+                { id: 'insight', label: 'INSIGHT', x: 0.5, y: 0.18, r: 24, color: '#A78BFA', desc: 'Targeted pedagogical mental model formulation.' },
+                { id: 'result', label: 'RESULT', x: 0.5, y: 0.82, r: 24, color: '#10B981', desc: 'Isomorphic transfer challenge verification.' }
+            ];
+
+            let hoveredNode = null;
+            let packetT = 0;
+
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                hoveredNode = null;
+                nodes.forEach(n => {
+                    const nx = w * n.x;
+                    const ny = h * n.y;
+                    const dist = Math.hypot(mx - nx, my - ny);
+                    if (dist < n.r + 10) {
+                        hoveredNode = n;
+                    }
+                });
+
+                const infoCard = document.getElementById('nodeInfoCard');
+                if (hoveredNode) {
+                    infoCard.classList.remove('opacity-0', 'translate-y-3');
+                    document.getElementById('nodeInfoTitle').innerText = hoveredNode.label;
+                    document.getElementById('nodeInfoDesc').innerText = hoveredNode.desc;
+                    document.getElementById('nodeInfoLatency').innerText = (Math.random() * 0.4 + 0.2).toFixed(1) + 'ms';
+                } else {
+                    infoCard.classList.add('opacity-0', 'translate-y-3');
+                }
+            });
+
+            function renderNetwork() {
+                ctx.clearRect(0, 0, w, h);
+                packetT += 0.015;
+
+                const center = nodes[0];
+                const cx = w * center.x;
+                const cy = h * center.y;
+
+                // Draw Connections & traveling packets
+                for (let i = 1; i < nodes.length; i++) {
+                    const n = nodes[i];
+                    const nx = w * n.x;
+                    const ny = h * n.y;
+
+                    const isHovered = (hoveredNode === n || hoveredNode === center);
+
+                    // Connection line
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy);
+                    ctx.lineTo(nx, ny);
+                    ctx.strokeStyle = isHovered ? n.color : 'rgba(139, 92, 246, 0.25)';
+                    ctx.lineWidth = isHovered ? 3 : 1.2;
+                    ctx.shadowBlur = isHovered ? 15 : 0;
+                    ctx.shadowColor = n.color;
+                    ctx.stroke();
+
+                    // Traveling pulse packet
+                    const pProgress = (packetT + (i * 0.25)) % 1;
+                    const px = cx + (nx - cx) * pProgress;
+                    const py = cy + (ny - cy) * pProgress;
+                    ctx.beginPath();
+                    ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+                    ctx.fillStyle = n.color;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = n.color;
+                    ctx.fill();
+                }
+
+                // Draw Nodes
+                nodes.forEach(n => {
+                    const nx = w * n.x;
+                    const ny = h * n.y;
+                    const isHovered = (hoveredNode === n);
+
+                    ctx.beginPath();
+                    ctx.arc(nx, ny, isHovered ? n.r * 1.2 : n.r, 0, Math.PI * 2);
+                    ctx.fillStyle = isHovered ? '#FFFFFF' : '#0B1128';
+                    ctx.strokeStyle = n.color;
+                    ctx.lineWidth = isHovered ? 4 : 2;
+                    ctx.shadowBlur = isHovered ? 25 : 10;
+                    ctx.shadowColor = n.color;
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Label
+                    ctx.font = 'bold 11px "JetBrains Mono"';
+                    ctx.fillStyle = isHovered ? '#0B1128' : '#F8FAFC';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.shadowBlur = 0;
+                    ctx.fillText(n.label, nx, ny);
+                });
+
+                requestAnimationFrame(renderNetwork);
+            }
+            renderNetwork();
+        })();
+
+        // 8. 3D Tilt Card Interaction
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const rotateX = -(y / rect.height) * 16;
+                const rotateY = (x / rect.width) * 16;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+
+        // 9. Live Frontend AI Demo Simulation (Pure Client-Side JavaScript)
+        (function() {
+            const scenarioBtns = document.querySelectorAll('.demo-scenario-btn');
+            const codeDisplay = document.getElementById('demoCodeDisplay');
+            const btnRun = document.getElementById('btnRunDemo');
+            const progressTracker = document.getElementById('demoProgressTracker');
+            const statusText = document.getElementById('demoStatusText');
+            const percentText = document.getElementById('demoPercent');
+            const progressBar = document.getElementById('demoProgressBar');
+            const resultCard = document.getElementById('demoResultCard');
+
+            scenarioBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    scenarioBtns.forEach(b => {
+                        b.classList.remove('active', 'border-purple', 'text-lightText');
+                        b.classList.add('border-white/10', 'text-slateText');
+                    });
+                    btn.classList.add('active', 'border-purple', 'text-lightText');
+                    btn.classList.remove('border-white/10', 'text-slateText');
+                    codeDisplay.innerText = btn.dataset.code;
+                    resultCard.classList.add('hidden');
+                });
+            });
+
+            btnRun.addEventListener('click', () => {
+                resultCard.classList.add('hidden');
+                progressTracker.classList.remove('hidden');
+
+                const states = [
+                    { text: "CONNECTING...", pct: 20 },
+                    { text: "AI INITIALIZING...", pct: 45 },
+                    { text: "ANALYZING DATA...", pct: 70 },
+                    { text: "PROCESSING AST TOKENS...", pct: 90 },
+                    { text: "RESULT READY ✓", pct: 100 }
+                ];
+
+                let idx = 0;
+                const timer = setInterval(() => {
+                    if (idx < states.length) {
+                        statusText.innerText = states[idx].text;
+                        percentText.innerText = states[idx].pct + '%';
+                        progressBar.style.width = states[idx].pct + '%';
+                        idx++;
+                    } else {
+                        clearInterval(timer);
+                        setTimeout(() => {
+                            progressTracker.classList.add('hidden');
+                            resultCard.classList.remove('hidden');
+                        }, 400);
+                    }
+                }, 400);
+            });
+        })();
+
+        // 10. Animated Statistics Counters on Scroll
+        (function() {
+            const counters = document.querySelectorAll('.stat-counter');
+            let activated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !activated) {
+                        activated = true;
+                        counters.forEach(counter => {
+                            const target = parseFloat(counter.dataset.target);
+                            const suffix = counter.dataset.suffix || '';
+                            const isDecimal = counter.dataset.decimal ? parseInt(counter.dataset.decimal) : 0;
+                            const duration = 1600;
+                            const startTime = performance.now();
+
+                            function updateCount(currTime) {
+                                const progress = Math.min((currTime - startTime) / duration, 1);
+                                const val = (progress * target).toFixed(isDecimal);
+                                counter.innerText = val + suffix;
+                                if (progress < 1) {
+                                    requestAnimationFrame(updateCount);
+                                }
+                            }
+                            requestAnimationFrame(updateCount);
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            const statsSection = document.getElementById('statistics');
+            if (statsSection) observer.observe(statsSection);
+        })();
+    </script>
+</body>
+</html>

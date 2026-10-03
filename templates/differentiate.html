@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+
+{% block title %}Misconception Differentiation | Re:Learn AI{% endblock %}
+
+{% block content %}
+<div class="space-y-10">
+
+    <!-- Header Banner -->
+    <div class="space-card rounded-3xl p-6 sm:p-8 space-y-3 border border-purple-500/30">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-mono">
+            <i class="fa-solid fa-code-compare text-purple-400"></i>
+            <span>Hackathon Key Criterion #3</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <span class="text-glow-white">MISCONCEPTION</span>
+            <span class="text-glow-purple ml-2">DIFFERENTIATION</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
+            Standard test suites mark both submissions as simply incorrect when they output similar buggy slices. Re:Learn's AST cognitive parser disambiguates the <strong>distinct mental flaws</strong> producing identical failure symptoms.
+        </p>
+    </div>
+
+    <!-- Arena Workspace -->
+    <div class="space-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/30">
+
+        <!-- Active Context -->
+        <div class="bg-space-950 p-5 rounded-2xl border border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+                <span class="text-[10px] font-mono font-bold text-purple-400 uppercase tracking-widest block">Active Target Task:</span>
+                <p class="text-sm text-slate-200">
+                    Given list <code class="text-purple-300 font-mono bg-space-850 px-2 py-0.5 rounded border border-purple-500/30">arr = [10, 20, 30, 40]</code>, extract the first 2 elements.
+                </p>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="btnPresetSlicing" class="px-3 py-1.5 rounded-full bg-space-850 hover:bg-space-800 text-purple-300 border border-purple-500/30 text-xs font-mono transition">
+                    Preset: Slicing Shift vs Inclusivity
+                </button>
+                <button id="btnPresetLoop" class="px-3 py-1.5 rounded-full bg-space-850 hover:bg-space-800 text-slate-300 border border-purple-500/30 text-xs font-mono transition">
+                    Preset: Loops Accumulator
+                </button>
+            </div>
+        </div>
+
+        <!-- VS Submissions Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Student A -->
+            <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-3">
+                <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                    <span class="text-xs font-bold font-mono text-purple-300 uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span> Student Submission A
+                    </span>
+                    <span class="text-[11px] font-mono text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full border border-rose-500/20">
+                        Result: [20]
+                    </span>
+                </div>
+                <div class="bg-space-950 p-3.5 rounded-xl border border-purple-500/20">
+                    <textarea id="codeA" rows="4" class="w-full bg-transparent font-mono text-sm text-purple-300 focus:outline-none leading-relaxed resize-none" spellcheck="false">first_two = arr[1:2]</textarea>
+                </div>
+            </div>
+
+            <!-- Student B -->
+            <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-3">
+                <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                    <span class="text-xs font-bold font-mono text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Student Submission B
+                    </span>
+                    <span class="text-[11px] font-mono text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full border border-rose-500/20">
+                        Result: [10]
+                    </span>
+                </div>
+                <div class="bg-space-950 p-3.5 rounded-xl border border-purple-500/20">
+                    <textarea id="codeB" rows="4" class="w-full bg-transparent font-mono text-sm text-amber-300 focus:outline-none leading-relaxed resize-none" spellcheck="false">first_two = arr[0:1]</textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="btnDifferentiate" class="w-full py-4 px-6 rounded-2xl btn-purple-glow text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-xl">
+            <i class="fa-solid fa-code-fork text-base"></i>
+            <span>Execute Semantic Differentiation & Root Cause Disambiguation</span>
+        </button>
+
+    </div>
+
+    <!-- Output Analysis -->
+    <div id="diffResults" class="space-y-6">
+
+        <div class="space-card rounded-3xl p-6 sm:p-7 border border-purple-500/40 space-y-3">
+            <div class="flex items-center gap-2 text-purple-400 text-xs font-mono font-bold uppercase tracking-wider">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>Disambiguation Analysis Verdict</span>
+            </div>
+            <p id="diffExplanation" class="text-sm sm:text-base text-slate-200 leading-relaxed font-medium">
+                Analyzing cognitive submissions...
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="compCards">
+            <!-- Populated via JS -->
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const codeA = document.getElementById('codeA');
+    const codeB = document.getElementById('codeB');
+
+    document.getElementById('btnPresetSlicing').addEventListener('click', () => {
+        codeA.value = 'first_two = arr[1:2]';
+        codeB.value = 'first_two = arr[0:1]';
+        runDiff();
+    });
+
+    document.getElementById('btnPresetLoop').addEventListener('click', () => {
+        codeA.value = 'for x in nums:\n    total = 0\n    total += x';
+        codeB.value = 'total = 0\nfor x in nums:\n    total = total + str(x)';
+        runDiff();
+    });
+
+    document.getElementById('btnDifferentiate').addEventListener('click', runDiff);
+
+    async function runDiff() {
+        const ca = codeA.value;
+        const cb = codeB.value;
+
+        try {
+            const res = await fetch('/api/differentiate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code_a: ca, code_b: cb })
+            });
+            const data = await res.json();
+
+            document.getElementById('diffExplanation').innerText = data.differentiation_explanation;
+
+            const cards = document.getElementById('compCards');
+            cards.innerHTML = `
+                <div class="space-card rounded-2xl p-6 border border-purple-500/40 space-y-4 shadow-xl">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono font-bold bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg border border-purple-500/30">${data.submission_a.misconception_id}</span>
+                        <span class="text-[11px] font-mono text-slate-400">Student A</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white tracking-tight">${data.submission_a.misconception}</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">${data.submission_a.cognitive_flaw}</p>
+                    <div class="bg-space-950 p-3.5 rounded-xl border border-purple-500/20 font-mono text-xs text-purple-300">${escapeHtml(data.submission_a.code)}</div>
+                </div>
+                <div class="space-card rounded-2xl p-6 border border-amber-500/40 space-y-4 shadow-xl">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono font-bold bg-amber-500/20 text-amber-300 px-3 py-1 rounded-lg border border-amber-500/30">${data.submission_b.misconception_id}</span>
+                        <span class="text-[11px] font-mono text-slate-400">Student B</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white tracking-tight">${data.submission_b.misconception}</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">${data.submission_b.cognitive_flaw}</p>
+                    <div class="bg-space-950 p-3.5 rounded-xl border border-purple-500/20 font-mono text-xs text-amber-300">${escapeHtml(data.submission_b.code)}</div>
+                </div>
+            `;
+        } catch (err) {
+            console.error(err);
+            alert('Error running differentiation.');
+        }
+    }
+
+    function escapeHtml(text) {
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    runDiff();
+</script>
+{% endblock %}

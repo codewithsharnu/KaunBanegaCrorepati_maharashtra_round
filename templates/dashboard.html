@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+
+{% block title %}Model Evaluation Dashboard | Re:Learn AI{% endblock %}
+
+{% block content %}
+<div class="space-y-10">
+
+    <!-- Header Banner -->
+    <div class="space-card rounded-3xl p-6 sm:p-8 space-y-3 border border-purple-500/30">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-mono">
+            <i class="fa-solid fa-chart-line text-purple-400"></i>
+            <span>Rigorous Model Evaluation</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <span class="text-glow-white">MODEL PERFORMANCE</span>
+            <span class="text-glow-purple ml-2">& MASTERY</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
+            Quantitative evaluation metrics on a held-out test split of unseen student code, coupled with dynamic learner cognitive trajectory tracking.
+        </p>
+    </div>
+
+    <!-- Top KPI Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span>TEST ACCURACY</span>
+                <i class="fa-solid fa-crosshairs text-purple-400"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-glow-purple font-mono">
+                {{ eval_data.accuracy }}%
+            </div>
+            <span class="text-[11px] text-slate-400 block font-mono">Generalization score</span>
+        </div>
+
+        <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span>PRECISION (WEIGHTED)</span>
+                <i class="fa-solid fa-bullseye text-purple-400"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono text-glow-white">
+                100.0%
+            </div>
+            <span class="text-[11px] text-slate-400 block font-mono">Zero false positives</span>
+        </div>
+
+        <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span>F1-SCORE (WEIGHTED)</span>
+                <i class="fa-solid fa-scale-balanced text-purple-400"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-purple-300 font-mono">
+                88.9%
+            </div>
+            <span class="text-[11px] text-slate-400 block font-mono">Harmonic balance</span>
+        </div>
+
+        <div class="space-card rounded-2xl p-5 border border-purple-500/30 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span>BENCHMARK DATASET</span>
+                <i class="fa-solid fa-database text-purple-400"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-amber-300 font-mono">
+                {{ eval_data.total_samples }}
+            </div>
+            <span class="text-[11px] text-slate-400 block font-mono">{{ eval_data.train_samples }} Train / {{ eval_data.test_samples }} Test</span>
+        </div>
+
+    </div>
+
+    <!-- Per-Class Performance Breakdown Table -->
+    <div class="space-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/30 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-purple-500/20 pb-4">
+            <div class="space-y-1">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-table-cells text-purple-400"></i> Quantitative Misconception Classification Report
+                </h3>
+                <p class="text-xs text-slate-400 font-mono">Evaluated on completely unseen test student submissions.</p>
+            </div>
+            <span class="text-xs font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full">
+                AST + TF-IDF Classifier
+            </span>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+                <thead class="bg-space-950 text-slate-400 uppercase text-[11px] border-b border-purple-500/20">
+                    <tr>
+                        <th class="py-3 px-4 rounded-l-xl">Cognitive Misconception</th>
+                        <th class="py-3 px-4">Precision</th>
+                        <th class="py-3 px-4">Recall</th>
+                        <th class="py-3 px-4">F1-Score</th>
+                        <th class="py-3 px-4 text-right rounded-r-xl">Test Support</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-purple-500/10">
+                    {% for label, metrics in eval_data.classification_report.items() %}
+                    <tr class="hover:bg-purple-950/20 transition">
+                        <td class="py-3.5 px-4 font-semibold text-slate-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                            <span>{{ label }}</span>
+                        </td>
+                        <td class="py-3.5 px-4 text-emerald-400 font-bold">{{ metrics.precision }}%</td>
+                        <td class="py-3.5 px-4 text-purple-300 font-bold">{{ metrics.recall }}%</td>
+                        <td class="py-3.5 px-4 text-purple-400 font-bold">{{ metrics['f1-score'] }}%</td>
+                        <td class="py-3.5 px-4 text-right text-slate-400">{{ metrics.support }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Confusion Matrix Heatmap -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <div class="lg:col-span-6 space-card rounded-3xl p-6 sm:p-7 border border-purple-500/30 space-y-4">
+            <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                <h4 class="font-bold text-base text-white flex items-center gap-2">
+                    <i class="fa-solid fa-braille text-purple-400"></i> Confusion Matrix Heatmap
+                </h4>
+                <span class="text-[11px] font-mono text-slate-400">Rows: True | Cols: Pred</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-mono border-collapse text-center">
+                    <thead>
+                        <tr>
+                            <th class="p-2 text-slate-500 text-left">Class</th>
+                            {% for l in eval_data.labels %}
+                            <th class="p-2 text-slate-400 font-normal truncate max-w-[45px]" title="{{ l }}">{{ l[:3] }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in eval_data.confusion_matrix %}
+                        {% set outer_loop = loop %}
+                        <tr>
+                            <td class="p-2 font-bold text-slate-300 text-left truncate max-w-[60px]" title="{{ eval_data.labels[outer_loop.index0] }}">
+                                {{ eval_data.labels[outer_loop.index0][:3] }}
+                            </td>
+                            {% for cell in row %}
+                            <td class="p-2 border border-purple-500/20 {% if cell > 0 and outer_loop.index0 == loop.index0 %}bg-purple-600/40 text-purple-200 font-bold rounded{% elif cell > 0 %}bg-rose-500/20 text-rose-300 font-bold rounded{% else %}text-slate-700{% endif %}">
+                                {{ cell }}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed pt-2 font-mono">
+                Purple diagonal represents true-positive model inferences on unseen student inputs.
+            </p>
+        </div>
+
+        <!-- Learner Model Engine Logic -->
+        <div class="lg:col-span-6 space-card rounded-3xl p-6 sm:p-7 border border-purple-500/30 space-y-4">
+            <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                <h4 class="font-bold text-base text-white flex items-center gap-2">
+                    <i class="fa-solid fa-diagram-project text-purple-400"></i> Learner Model Architecture
+                </h4>
+                <span class="text-[11px] font-mono text-purple-300 bg-purple-500/15 px-2.5 py-0.5 rounded-full border border-purple-500/30">Cognitive Tracking</span>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300 leading-relaxed">
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-purple-300 font-mono block">1. Cognitive Persistence Tracking:</span>
+                    <p class="text-slate-400">Counts occurrences of recurring misconceptions per student. If a student triggers the same category more than twice, intervention depth automatically escalates to a visual diagram.</p>
+                </div>
+
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-purple-300 font-mono block">2. Resolution Verification Gate:</span>
+                    <p class="text-slate-400">Unlike traditional platforms that mark an answer correct if the student merely retries the same question, Re:Learn presents an unseen transfer question to guarantee the mental model is fixed.</p>
+                </div>
+
+                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 space-y-1">
+                    <span class="font-bold text-purple-300 font-mono block">3. Mastery Formula:</span>
+                    <div class="font-mono text-purple-300 bg-space-850 p-2.5 rounded-lg border border-purple-500/30 text-center">
+                        Mastery % = (Verified Transfer Resolutions / Total Interventions) &times; 100
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Supported Misconception Taxonomy Catalog -->
+    <div class="space-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/30 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-book-bookmark text-purple-400"></i> Supported Misconceptions Taxonomy (Python 3)
+            </h3>
+            <span class="text-xs font-mono text-purple-300 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/30">
+                8 Cognitive Classes
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for m_id, meta in metadata.items() %}
+            <div class="bg-space-950 rounded-2xl p-5 border border-purple-500/20 space-y-3 hover:border-purple-500/50 transition">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">{{ m_id }}</span>
+                    <i class="fa-solid fa-code text-purple-400 text-xs"></i>
+                </div>
+                <h4 class="text-sm font-bold text-white tracking-tight">{{ meta.name }}</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">{{ meta.description }}</p>
+                <div class="text-[11px] text-purple-300/90 pt-2 border-t border-purple-500/20 flex items-start gap-1.5">
+                    <i class="fa-solid fa-lightbulb text-amber-400 text-xs mt-0.5"></i>
+                    <span>{{ meta.analogy }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,491 @@
+{% extends "layout.html" %}
+
+{% block title %}Re:Learn - Global AI Hackathon{% endblock %}
+
+{% block content %}
+<div class="space-y-12">
+
+    <!-- HERO SECTION: Exact Replica of Global AI Hackathon Theme Banner -->
+    <div class="flex flex-col items-center justify-center text-center pt-8 pb-10 space-y-6 relative z-10">
+
+        <!-- Main Title Glowing Stack -->
+        <div class="space-y-1">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight">
+                <span class="text-glow-white block">RE:LEARN</span>
+                <span class="text-glow-purple block mt-1 tracking-wider">AI HACKATHON</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-purple-300/80 font-medium tracking-widest uppercase pt-2 max-w-xl mx-auto">
+                The Starting Line For Adaptive Cognitive AI & Misconception Diagnosis
+            </p>
+        </div>
+
+        <!-- Hackathon Countdown Timer Pill -->
+        <div class="space-card rounded-2xl px-6 py-4 border border-purple-500/30 flex flex-col items-center gap-3">
+            <span class="text-[11px] font-mono tracking-widest text-purple-300 font-bold uppercase">
+                BIT N BUILD &bull; ROUND 1 SUBMISSION DEADLINE
+            </span>
+            <div class="flex items-center gap-3 sm:gap-4 text-center">
+                <div class="flex flex-col items-center">
+                    <div id="timerDays" class="countdown-tile w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-xl sm:text-2xl text-white">01</div>
+                    <span class="text-[9px] font-mono uppercase text-slate-400 mt-1">DAYS</span>
+                </div>
+                <span class="text-purple-400 font-bold text-xl -mt-4">:</span>
+                <div class="flex flex-col items-center">
+                    <div id="timerHours" class="countdown-tile w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-xl sm:text-2xl text-white">04</div>
+                    <span class="text-[9px] font-mono uppercase text-slate-400 mt-1">HOURS</span>
+                </div>
+                <span class="text-purple-400 font-bold text-xl -mt-4">:</span>
+                <div class="flex flex-col items-center">
+                    <div id="timerMinutes" class="countdown-tile w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-xl sm:text-2xl text-white">59</div>
+                    <span class="text-[9px] font-mono uppercase text-slate-400 mt-1">MINUTES</span>
+                </div>
+                <span class="text-purple-400 font-bold text-xl -mt-4">:</span>
+                <div class="flex flex-col items-center">
+                    <div id="timerSeconds" class="countdown-tile w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-xl sm:text-2xl text-purple-300">45</div>
+                    <span class="text-[9px] font-mono uppercase text-slate-400 mt-1">SECONDS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glowing White Pill Action Button (Matches Reference Image) -->
+        <div>
+            <a href="#workbench" class="btn-white-pill px-8 py-3.5 inline-flex items-center gap-2.5 text-sm sm:text-base font-bold cursor-pointer">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block animate-pulse"></span>
+                <span>• Launch AI Diagnostic Lab</span>
+            </a>
+        </div>
+
+        <!-- Bottom Pill Badges (Matches Reference Image) -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div class="pill-badge px-4 py-1.5 text-xs text-slate-300 flex items-center gap-2">
+                <i class="fa-regular fa-calendar text-purple-400"></i>
+                <span>Oct 3 - 4, 2026</span>
+            </div>
+            <div class="pill-badge px-4 py-1.5 text-xs text-slate-300 flex items-center gap-2">
+                <i class="fa-solid fa-location-dot text-purple-400"></i>
+                <span>GDG Fr. CRCE Bandra &bull; Maharashtra Round</span>
+            </div>
+            <div class="pill-badge px-4 py-1.5 text-xs text-purple-300 border-purple-500/40 flex items-center gap-2">
+                <i class="fa-solid fa-award text-amber-400"></i>
+                <span>Problem #3: Re:Learn</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MAIN DIAGNOSTIC WORKBENCH -->
+    <div id="workbench" class="pt-6 space-y-8">
+
+        <!-- Top Section Header & Learner Mastery Card -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 space-card rounded-3xl p-6 sm:p-7">
+            <div class="space-y-1.5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-mono">
+                    <i class="fa-solid fa-brain-circuit text-purple-400"></i>
+                    <span>Neuro-Symbolic Diagnostic Architecture</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Introductory Python <span class="text-glow-purple">Misconception Diagnoser</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                    Unlike standard LMS platforms that output binary <strong>"Wrong Answer"</strong>, Re:Learn performs deep AST semantic parsing to discover the <strong>root mental misconception</strong> and provides targeted pedagogical intervention.
+                </p>
+            </div>
+
+            <!-- Learner Mastery HUD -->
+            <div class="countdown-tile p-4 sm:p-5 rounded-2xl min-w-[280px] space-y-2 border border-purple-500/30">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-mono uppercase tracking-wider">Learner Model</span>
+                    <span id="rankBadge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold border border-purple-500/30 font-mono">
+                        Level 1: Explorer
+                    </span>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div>
+                        <span id="masteryScore" class="text-3xl font-extrabold text-purple-300 font-mono">0.0%</span>
+                        <span class="text-xs text-slate-400 ml-1">Mastery</span>
+                    </div>
+                    <div class="text-right text-[11px] text-slate-400 font-mono">
+                        <span id="resolvedCount" class="text-emerald-400 font-bold">0</span> / <span id="totalAttempts" class="text-slate-200">0</span> Resolved
+                    </div>
+                </div>
+                <div class="w-full bg-space-950 rounded-full h-2 overflow-hidden border border-purple-500/20">
+                    <div id="masteryProgressBar" class="h-full bg-gradient-to-r from-purple-600 via-purple-400 to-emerald-400 rounded-full transition-all duration-700" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2-Column Grid: Code Editor & Diagnosis Output -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Left: IDE & Problem Selection (5 cols) -->
+            <div class="lg:col-span-5 space-y-6">
+
+                <!-- Problem Selector Card -->
+                <div class="space-card rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-slate-300 uppercase font-mono tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-purple-400"></i> Select Challenge
+                        </label>
+                        <span class="text-[11px] text-purple-400 font-mono bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">Domain: Python</span>
+                    </div>
+
+                    <div class="relative">
+                        <select id="problemSelector" class="w-full bg-space-950 border border-purple-500/30 hover:border-purple-500 focus:border-purple-400 rounded-xl px-4 py-3 text-sm text-slate-200 font-medium appearance-none cursor-pointer focus:outline-none transition">
+                            {% for p in sample_problems %}
+                            <option value="{{ p.id }}" data-desc="{{ p.description }}" data-e1="{{ p.sample_error_1 }}" data-e2="{{ p.sample_error_2 }}" data-correct="{{ p.correct }}">
+                                {{ p.title }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-purple-400 text-xs">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-space-950/80 border border-purple-500/20 rounded-xl p-4 text-xs text-slate-300 space-y-1">
+                        <span class="text-[10px] font-mono text-purple-400 font-bold uppercase tracking-wider block">Challenge Objective:</span>
+                        <p id="problemDescription" class="leading-relaxed text-slate-300"></p>
+                    </div>
+                </div>
+
+                <!-- Code Editor Window -->
+                <div class="space-card rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl">
+                    <div class="bg-space-950 px-4 py-3 border-b border-purple-500/20 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                            <span class="text-xs font-mono text-slate-400 ml-2">solution.py</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] text-slate-400 uppercase font-mono mr-1">Sample Bug:</span>
+                            <button id="btnLoadError1" class="text-[11px] font-mono px-2.5 py-1 rounded bg-space-850 hover:bg-space-800 text-purple-300 border border-purple-500/30 transition">
+                                #1
+                            </button>
+                            <button id="btnLoadError2" class="text-[11px] font-mono px-2.5 py-1 rounded bg-space-850 hover:bg-space-800 text-purple-300 border border-purple-500/30 transition">
+                                #2
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-space-950">
+                        <textarea id="codeEditor" rows="7" class="w-full bg-transparent font-mono text-sm text-purple-200 focus:outline-none leading-relaxed resize-y selection:bg-purple-600/40" spellcheck="false" placeholder="# Enter learner Python code here..."></textarea>
+                    </div>
+
+                    <div class="p-4 bg-space-950/80 border-t border-purple-500/20">
+                        <button id="btnDiagnose" class="w-full py-3.5 px-4 rounded-xl btn-purple-glow text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg group">
+                            <i class="fa-solid fa-wand-magic-sparkles text-base group-hover:rotate-12 transition-transform"></i>
+                            <span>Diagnose Underlying Misconception</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: AI Diagnostic Output & Adaptive Pedagogical Intervention (7 cols) -->
+            <div class="lg:col-span-7">
+
+                <!-- Scanning Animation State -->
+                <div id="scanningState" class="hidden space-card rounded-2xl p-12 text-center space-y-4">
+                    <div class="relative w-16 h-16 mx-auto">
+                        <div class="w-16 h-16 rounded-full border-4 border-purple-500/20 border-t-purple-500 animate-spin"></div>
+                        <i class="fa-solid fa-brain text-purple-400 absolute inset-0 flex items-center justify-center text-xl"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white tracking-wide">Deconstructing Syntactic & Semantic Nodes...</h3>
+                    <div class="text-xs font-mono text-purple-300/80 space-y-1">
+                        <p>&bull; Inspecting AST Subscripts & Boundary Inclusivity</p>
+                        <p>&bull; Evaluating TF-IDF Lexical Feature Centroids</p>
+                        <p>&bull; Formulating Multi-modal Pedagogical Intervention</p>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyResults" class="space-card rounded-3xl p-12 text-center space-y-4 border-dashed border-2 border-purple-500/20">
+                    <div class="w-20 h-20 mx-auto rounded-3xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-3xl text-purple-400 shadow-inner">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Diagnostic Engine Ready</h3>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                        Select a challenge on the left or enter code, then click <strong>"Diagnose Underlying Misconception"</strong> to trigger the AI cognitive analysis.
+                    </p>
+                </div>
+
+                <!-- Active Diagnosis Container -->
+                <div id="resultsContainer" class="hidden space-y-6">
+
+                    <!-- Misconception Header Card -->
+                    <div class="space-card rounded-3xl p-6 sm:p-7 border border-purple-500/40 relative overflow-hidden shadow-2xl">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span id="misconceptionIdBadge" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                                    M1_INDEXING_OFF_BY_ONE
+                                </span>
+                                <span id="categoryBadge" class="px-3 py-1 rounded-lg text-xs font-medium bg-space-850 text-slate-300 border border-purple-500/20">
+                                    Data Sequences & Slicing
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-mono font-bold text-purple-300 bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/20">
+                                <i class="fa-solid fa-bullseye text-purple-400"></i>
+                                <span>Confidence: <span id="confidenceVal">95%</span></span>
+                            </div>
+                        </div>
+
+                        <h3 id="misconceptionName" class="text-2xl font-extrabold text-white tracking-tight">
+                            1-Based Indexing Assumption
+                        </h3>
+                        <p id="misconceptionDesc" class="text-sm text-slate-300 mt-2 leading-relaxed">
+                            Student assumes sequence indices begin at 1 instead of Python's 0-based indexing.
+                        </p>
+
+                        <!-- Analogy Callout -->
+                        <div class="mt-5 bg-purple-950/40 border border-purple-500/30 rounded-2xl p-4 flex items-start gap-3.5">
+                            <div class="w-9 h-9 rounded-xl bg-purple-500/20 flex-shrink-0 flex items-center justify-center text-purple-300 text-base">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono font-bold text-purple-300 uppercase tracking-widest block">Mental Model Analogy:</span>
+                                <p id="analogyText" class="text-xs text-purple-200 mt-1 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adaptive Pedagogical Intervention -->
+                    <div class="space-card rounded-3xl p-6 sm:p-7 space-y-5 border border-purple-500/30">
+                        <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                            <h4 class="font-bold text-base text-white flex items-center gap-2">
+                                <i class="fa-solid fa-compass-drafting text-purple-400"></i> Adaptive Targeted Intervention
+                            </h4>
+                            <span class="text-[11px] font-mono text-purple-300 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">Pedagogical Remediation</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">Targeted Concept Rule:</span>
+                                <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 text-sm text-slate-200 leading-relaxed" id="conceptRule"></div>
+                            </div>
+
+                            <div>
+                                <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">Visual Memory Trace & Index Layout:</span>
+                                <div class="bg-space-950 rounded-xl border border-purple-500/20 p-4 overflow-x-auto">
+                                    <pre id="visualDiagram" class="font-mono text-xs text-purple-300 whitespace-pre leading-relaxed"></pre>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-500/30 flex items-center gap-3 text-xs text-purple-200">
+                                <i class="fa-solid fa-sparkles text-purple-400 text-base"></i>
+                                <div>
+                                    <span class="font-bold text-purple-300">Actionable Rule of Thumb:</span>
+                                    <span id="remediationHint" class="ml-1"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resolution Assessment (Transfer Gate) -->
+                    <div class="space-card rounded-3xl p-6 sm:p-7 border border-emerald-500/40 space-y-4 shadow-xl">
+                        <div class="flex items-center justify-between border-b border-purple-500/20 pb-3">
+                            <div>
+                                <h4 class="font-bold text-base text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> Resolution Assessment (Transfer Test)
+                                </h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Determine if the diagnosed misconception has been genuinely resolved.</p>
+                            </div>
+                            <span class="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-lg border border-emerald-500/30 font-bold">
+                                Transfer Gate
+                            </span>
+                        </div>
+
+                        <div class="bg-space-950 p-4 rounded-xl border border-purple-500/20 text-sm text-slate-200">
+                            <p class="font-semibold leading-relaxed" id="challengeQuestion"></p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-mono text-slate-400 font-semibold uppercase tracking-wider block">Your Solution Expression:</label>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <input type="text" id="transferAnswerInput" class="flex-1 bg-space-950 border border-purple-500/30 focus:border-emerald-500 rounded-xl px-4 py-3 font-mono text-sm text-emerald-300 focus:outline-none transition" placeholder="e.g. colors[3]">
+                                <button id="btnVerifyResolution" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30">
+                                    <i class="fa-solid fa-check-double"></i>
+                                    <span>Verify Resolution</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="resolutionFeedback" class="hidden p-4 rounded-xl text-xs font-medium transition-all"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Live Countdown Timer
+    function updateCountdown() {
+        // Target: Hackathon submission deadline (Tomorrow 12:00 PM)
+        const now = new Date();
+        const target = new Date();
+        target.setDate(target.getDate() + 1);
+        target.setHours(12, 0, 0, 0);
+
+        const diff = target - now;
+        if (diff > 0) {
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('timerDays').innerText = String(days).padStart(2, '0');
+            document.getElementById('timerHours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('timerMinutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('timerSeconds').innerText = String(seconds).padStart(2, '0');
+        }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    let currentDiagnosis = null;
+    const problemSelector = document.getElementById('problemSelector');
+    const problemDesc = document.getElementById('problemDescription');
+    const codeEditor = document.getElementById('codeEditor');
+
+    function syncProblemUI() {
+        const opt = problemSelector.selectedOptions[0];
+        problemDesc.innerText = opt.dataset.desc;
+        codeEditor.value = opt.dataset.e1;
+    }
+
+    problemSelector.addEventListener('change', syncProblemUI);
+    syncProblemUI();
+
+    document.getElementById('btnLoadError1').addEventListener('click', () => {
+        codeEditor.value = problemSelector.selectedOptions[0].dataset.e1;
+    });
+
+    document.getElementById('btnLoadError2').addEventListener('click', () => {
+        codeEditor.value = problemSelector.selectedOptions[0].dataset.e2;
+    });
+
+    document.getElementById('btnDiagnose').addEventListener('click', async () => {
+        const code = codeEditor.value;
+        const problemId = problemSelector.value;
+
+        if (!code.trim()) {
+            alert('Please enter student code to diagnose.');
+            return;
+        }
+
+        document.getElementById('emptyResults').classList.add('hidden');
+        document.getElementById('resultsContainer').classList.add('hidden');
+        document.getElementById('scanningState').classList.remove('hidden');
+
+        try {
+            const res = await fetch('/api/diagnose', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, problem_id: problemId, learner_id: 'STUDENT_01' })
+            });
+            const data = await res.json();
+
+            setTimeout(() => {
+                document.getElementById('scanningState').classList.add('hidden');
+                if (data.diagnosis) {
+                    currentDiagnosis = data.diagnosis;
+                    renderDiagnosis(data.diagnosis);
+                    updateLearnerStats(data.learner_profile);
+                }
+            }, 350);
+
+        } catch (err) {
+            console.error(err);
+            document.getElementById('scanningState').classList.add('hidden');
+            document.getElementById('emptyResults').classList.remove('hidden');
+            alert('Error running diagnosis.');
+        }
+    });
+
+    function renderDiagnosis(d) {
+        document.getElementById('resultsContainer').classList.remove('hidden');
+
+        document.getElementById('misconceptionIdBadge').innerText = d.misconception_id;
+        document.getElementById('categoryBadge').innerText = d.category;
+        document.getElementById('confidenceVal').innerText = Math.round(d.confidence * 100) + '%';
+        document.getElementById('misconceptionName').innerText = d.misconception_name;
+        document.getElementById('misconceptionDesc').innerText = d.description;
+        document.getElementById('analogyText').innerText = d.analogy;
+
+        const inter = d.intervention || {};
+        document.getElementById('conceptRule').innerText = inter.concept_rule || 'N/A';
+        document.getElementById('visualDiagram').innerText = inter.visual_diagram || 'N/A';
+        document.getElementById('remediationHint').innerText = inter.remediation_hint || 'N/A';
+
+        const challenge = d.transfer_challenge || {};
+        document.getElementById('challengeQuestion').innerText = challenge.question || 'Answer the transfer question to resolve.';
+        document.getElementById('transferAnswerInput').value = '';
+        const fb = document.getElementById('resolutionFeedback');
+        fb.className = 'hidden';
+    }
+
+    function updateLearnerStats(p) {
+        if (!p) return;
+        document.getElementById('masteryScore').innerText = p.mastery_score + '%';
+        document.getElementById('masteryProgressBar').style.width = Math.min(p.mastery_score, 100) + '%';
+        document.getElementById('resolvedCount').innerText = p.resolved_count;
+        document.getElementById('totalAttempts').innerText = p.total_attempts;
+
+        const rank = document.getElementById('rankBadge');
+        if (p.resolved_count >= 5) {
+            rank.innerText = 'Level 4: Python Architect';
+        } else if (p.resolved_count >= 3) {
+            rank.innerText = 'Level 3: Syntax Sensei';
+        } else if (p.resolved_count >= 1) {
+            rank.innerText = 'Level 2: Apprentice Debugger';
+        }
+    }
+
+    document.getElementById('btnVerifyResolution').addEventListener('click', async () => {
+        if (!currentDiagnosis) return;
+        const ans = document.getElementById('transferAnswerInput').value;
+        if (!ans.trim()) {
+            alert('Please type an answer to verify.');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/resolve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    learner_id: 'STUDENT_01',
+                    misconception_id: currentDiagnosis.misconception_id,
+                    answer: ans
+                })
+            });
+            const data = await res.json();
+            const fb = document.getElementById('resolutionFeedback');
+            fb.classList.remove('hidden');
+
+            if (data.is_resolved) {
+                fb.className = 'p-4 rounded-xl text-xs font-semibold bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-start gap-2.5';
+                fb.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400 text-sm mt-0.5"></i> <div>' + data.feedback + '</div>';
+            } else {
+                fb.className = 'p-4 rounded-xl text-xs font-semibold bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-start gap-2.5';
+                fb.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-400 text-sm mt-0.5"></i> <div>' + data.feedback + '</div>';
+            }
+
+            if (data.learner_profile) {
+                updateLearnerStats(data.learner_profile);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+</script>
+{% endblock %}
