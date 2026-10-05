@@ -966,30 +966,26 @@
     <script>
         // 0. Live Domain Copy & Dynamic Detection Helper
         function getCurrentDomain() {
-            if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-                return window.location.origin;
-            }
-            return 'https://perception-thehun-fought-popular.trycloudflare.com';
+            return 'https://perception-thehun-fought-popular.trycloudflare.com/ide';
         }
 
         function copyCurrentLiveDomain() {
             copyLiveDomain(getCurrentDomain());
         }
 
-        // Auto-update links if running on a live hostname
+        // Direct all external links directly to the dedicated live cloud IDE
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-                const liveUrl = window.location.origin;
-                const host = window.location.hostname;
-                const heroLink = document.getElementById('heroLiveDomainLink');
-                const heroText = document.getElementById('heroLiveDomainText');
-                const navLink = document.getElementById('navLiveDomainLink');
-                const ctaLink = document.getElementById('ctaLiveDomainLink');
-                if (heroLink) heroLink.href = liveUrl;
-                if (heroText) heroText.innerText = host;
-                if (navLink) navLink.href = liveUrl;
-                if (ctaLink) ctaLink.href = liveUrl;
-            }
+            const ideUrl = 'https://perception-thehun-fought-popular.trycloudflare.com/ide';
+            const heroLink = document.getElementById('heroLiveDomainLink');
+            const heroText = document.getElementById('heroLiveDomainText');
+            const navLink = document.getElementById('navLiveDomainLink');
+            const ctaLink = document.getElementById('ctaLiveDomainLink');
+            const studioLink = document.getElementById('studioDirectIdeLink');
+            if (heroLink) heroLink.href = ideUrl;
+            if (heroText) heroText.innerText = 'perception-thehun-fought-popular.trycloudflare.com/ide';
+            if (navLink) navLink.href = ideUrl;
+            if (ctaLink) ctaLink.href = ideUrl;
+            if (studioLink) studioLink.href = ideUrl;
         });
 
         function copyLiveDomain(url) {
